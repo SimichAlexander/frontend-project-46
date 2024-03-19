@@ -1,6 +1,6 @@
-import * as fs from 'node:fs';
-import * as path from 'node:path';
 import _ from 'lodash';
+import * as path from 'node:path';
+import parsers from './parsers.js';
 
 const diff = (filepath1, filepath2) => {
   if (!filepath1.startsWith('/')) {
@@ -9,22 +9,15 @@ const diff = (filepath1, filepath2) => {
   if (!filepath2.startsWith('/')) {
     filepath2 = path.resolve(process.cwd(), filepath2);
   }
-  const data1 = fs.readFileSync(filepath1, {encoding: 'utf8'});
-  const data2 = fs.readFileSync(filepath2, {encoding: 'utf8'});
 
-  const dataObj1 = JSON.parse(data1);
-  const dataObj2 = JSON.parse(data2);
-  
-  const sortedObj1 = Object.keys(dataObj1)
-  .sort()
-  .reduce((acc, key) => {
+  let [dataObj1, dataObj2] = parsers(filepath1, filepath2);
+
+  const sortedObj1 = Object.keys(dataObj1).sort().reduce((acc, key) => {
     acc[key] = dataObj1[key];
     return acc;
   }, {});
 
-  const sortedObj2 = Object.keys(dataObj2)
-  .sort()
-  .reduce((acc, key) => {
+  const sortedObj2 = Object.keys(dataObj2).sort().reduce((acc, key) => {
     acc[key] = dataObj2[key];
     return acc;
   }, {});
