@@ -25,7 +25,7 @@ const deepEqual = (obj1, obj2) => {
   }
 }
 
-const diff = (filepath1, filepath2) => {
+const genDiff = (filepath1, filepath2) => {
   const [dataObj1, dataObj2] = filesToObjects(filepath1, filepath2);
   let result = '';
 
@@ -101,4 +101,4 @@ const printObject = (value, depth) => {
   return iter(value, depth);
 };
 
-export default diff;
+export default genDiff;
