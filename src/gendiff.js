@@ -1,14 +1,13 @@
 import _ from "lodash";
 import * as path from "node:path";
 import parsers from "./parsers.js";
-import stylish from "../formatters/stylish.js";
 
 const filesToObjects = (filepath1, filepath2) => {
   if (!filepath1.startsWith("/")) {
-    filepath1 = path.resolve(process.cwd(), filepath1);
+    filepath1 = path.resolve(process.cwd(), "./__fixtures__/", filepath1);
   }
   if (!filepath2.startsWith("/")) {
-    filepath2 = path.resolve(process.cwd(), filepath2);
+    filepath2 = path.resolve(process.cwd(), "./__fixtures__/", filepath2);
   }
 
   let [dataObj1, dataObj2] = parsers(filepath1, filepath2);
@@ -16,7 +15,7 @@ const filesToObjects = (filepath1, filepath2) => {
   return [dataObj1, dataObj2];
 };
 
-const genDiff = (filepath1, filepath2, formatter) => {
+const genDiff = (filepath1, filepath2) => {
   const [dataObj1, dataObj2] = filesToObjects(filepath1, filepath2);
   const result = {
     status: "root",
@@ -73,9 +72,7 @@ const genDiff = (filepath1, filepath2, formatter) => {
   };
 
   result.children = iter(dataObj1, dataObj2);
-  return formatter(result);
+  return result;
 };
-
-
 
 export default genDiff;
