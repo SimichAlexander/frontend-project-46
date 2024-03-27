@@ -1,16 +1,18 @@
-import _ from "lodash";
-import * as path from "node:path";
-import parsers from "./parsers.js";
+import _ from 'lodash';
+import * as path from 'node:path';
+import parsers from './parsers.js';
 
 const filesToObjects = (filepath1, filepath2) => {
-  if (!filepath1.startsWith("/")) {
-    filepath1 = path.resolve(process.cwd(), "./__fixtures__/", filepath1);
+  let path1 = filepath1;
+  let path2 = filepath2;
+  if (!path1.startsWith('/')) {
+    path1 = path.resolve(process.cwd(), './__fixtures__/', path1);
   }
-  if (!filepath2.startsWith("/")) {
-    filepath2 = path.resolve(process.cwd(), "./__fixtures__/", filepath2);
+  if (!path2.startsWith('/')) {
+    path2 = path.resolve(process.cwd(), './__fixtures__/', path2);
   }
 
-  let [dataObj1, dataObj2] = parsers(filepath1, filepath2);
+  const [dataObj1, dataObj2] = parsers(path1, path2);
 
   return [dataObj1, dataObj2];
 };
@@ -18,7 +20,7 @@ const filesToObjects = (filepath1, filepath2) => {
 const genDiff = (filepath1, filepath2) => {
   const [dataObj1, dataObj2] = filesToObjects(filepath1, filepath2);
   const result = {
-    status: "root",
+    status: 'root',
     children: [],
   };
 
@@ -31,38 +33,34 @@ const genDiff = (filepath1, filepath2) => {
       if (!Object.hasOwn(data1, key)) {
         return {
           key: `${key}`,
-          status: "added",
+          status: 'added',
           value: data2[key],
         };
       }
       if (!Object.hasOwn(data2, key)) {
         return {
           key: `${key}`,
-          status: "removed",
+          status: 'removed',
           value: data1[key],
         };
       }
       if (data1[key] === data2[key]) {
         return {
           key: `${key}`,
-          status: "unchanged",
+          status: 'unchanged',
           value: data1[key],
         };
       }
-      if (
-        data1[key] !== data2[key] &&
-        _.isObject(data1[key]) &&
-        _.isObject(data2[key])
-      ) {
+      if (data1[key] !== data2[key] && _.isObject(data1[key]) && _.isObject(data2[key])) {
         return {
           key: `${key}`,
-          status: "nested",
+          status: 'nested',
           children: iter(data1[key], data2[key]),
         };
       }
       return {
         key: `${key}`,
-        status: "updated",
+        status: 'updated',
         value1: data1[key],
         value2: data2[key],
       };

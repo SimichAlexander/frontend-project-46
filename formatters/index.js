@@ -1,11 +1,12 @@
-import stylish from "../formatters/stylish.js";
-import plain from "../formatters/plain.js";
-import json from "../formatters/json.js";
+import stylish from './stylish.js';
+import plain from './plain.js';
+import json from './json.js';
 
 const formatter = (object, format) => {
-  if (format === "plain") {
+  if (format === 'plain') {
     return plain(object);
-  } else if (format === "json") {
+  }
+  if (format === 'json') {
     return json(object);
   }
   return stylish(object);
