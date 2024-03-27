@@ -26,7 +26,10 @@ const plain = (object) => {
         case 'updated':
           name = acc.slice(0, acc.length - 1);
           acc = acc.replace(`${obj.key}.`, '');
-          return `Property '${name}' was updated. From ${iter(obj.value1, acc)} to ${iter(obj.value2, acc)}`;
+          return `Property '${name}' was updated. From ${iter(obj.value1, acc)} to ${iter(
+            obj.value2,
+            acc,
+          )}`;
         case 'unchanged':
           acc = acc.replace(`${obj.key}.`, '');
           return [];

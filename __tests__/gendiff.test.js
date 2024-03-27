@@ -8,8 +8,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-const expectedStylishFormat = fs.readFileSync(getFixturePath('expected-stylish-format.txt'), { encoding: 'utf8' });
-const expectedPlainFormat = fs.readFileSync(getFixturePath('expected-plain-format.txt'), { encoding: 'utf8' });
+const expectedStylishFormat = fs.readFileSync(getFixturePath('expected-stylish-format.txt'), {
+  encoding: 'utf8',
+});
+const expectedPlainFormat = fs.readFileSync(getFixturePath('expected-plain-format.txt'), {
+  encoding: 'utf8',
+});
 
 test('plain-format-diff-json', () => {
   expect(main('./file1.json', './file2.json', 'plain')).toBe(expectedPlainFormat);

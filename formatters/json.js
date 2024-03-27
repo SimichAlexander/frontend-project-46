@@ -5,7 +5,9 @@ const json = (object) => {
     if (!_.isObject(data)) {
       return data;
     }
-    const lines = Object.entries(data).map(([key, val]) => `${' '.repeat(depth * 4)}${key}: ${iter(val, depth + 1)}`);
+    const lines = Object.entries(data).map(
+      ([key, val]) => `${' '.repeat(depth * 4)}${key}: ${iter(val, depth + 1)}`,
+    );
 
     return ['{', ...lines, `${' '.repeat(depth * 4 - 4)}}`].join('\n');
   };
