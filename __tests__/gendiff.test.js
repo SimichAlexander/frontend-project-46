@@ -12,17 +12,17 @@ const expectedStylishFormat = fs.readFileSync(getFixturePath('expected-stylish-f
 const expectedPlainFormat = fs.readFileSync(getFixturePath('expected-plain-format.txt'), { encoding: 'utf8' });
 
 test('plain-format-diff-json', () => {
-    expect(main('./file1.json', './file2.json', 'plain')).toBe(expectedPlainFormat);
+  expect(main('./file1.json', './file2.json', 'plain')).toBe(expectedPlainFormat);
 });
 
 test('plain-format-diff-yaml', () => {
-    expect(main('./file1.yml', './file2.yml', 'plain')).toBe(expectedPlainFormat);
+  expect(main('./file1.yml', './file2.yml', 'plain')).toBe(expectedPlainFormat);
 });
 
 test('stylish-format-diff-json', () => {
-    expect(main('./file1.json', './file2.json', 'stylish')).toBe(expectedStylishFormat);
+  expect(main('./file1.json', './file2.json', 'stylish')).toBe(expectedStylishFormat);
 });
 
 test('stylish-format-diff-yaml', () => {
-    expect(main('./file1.yml', './file2.yml', 'stylish')).toBe(expectedStylishFormat);
+  expect(main('./file1.yml', './file2.yml', 'stylish')).toBe(expectedStylishFormat);
 });
