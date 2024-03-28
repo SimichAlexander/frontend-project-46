@@ -2,32 +2,25 @@ import _ from 'lodash';
 import * as path from 'node:path';
 import parsers from './parsers.js';
 
-const filesToObjects = (filepath1, filepath2) => {
-  let path1 = filepath1;
-  let path2 = filepath2;
-  if (!path1.startsWith('/')) {
-    path1 = path.resolve(process.cwd(), './__fixtures__/', path1);
+const fileToObject = (filepath) => {
+  if (!filepath.startsWith('/')) {
+    return parsers(path.resolve(process.cwd(), './__fixtures__/', filepath));
   }
-  if (!path2.startsWith('/')) {
-    path2 = path.resolve(process.cwd(), './__fixtures__/', path2);
-  }
-
-  const [dataObj1, dataObj2] = parsers(path1, path2);
-
-  return [dataObj1, dataObj2];
+  return parsers(filepath);
 };
 
 const genDiff = (filepath1, filepath2) => {
-  const [dataObj1, dataObj2] = filesToObjects(filepath1, filepath2);
+  const dataObj1 = fileToObject(filepath1);
+  const dataObj2 = fileToObject(filepath2);
   const result = {
     status: 'root',
-    children: [],
   };
 
   const iter = (data1, data2) => {
     const keys1 = Object.keys(data1);
     const keys2 = Object.keys(data2);
     const keys = _.union(keys1, keys2).sort();
+    // const sortedKeys = keys.sort();
 
     const arr = keys.map((key) => {
       if (!Object.hasOwn(data1, key)) {
