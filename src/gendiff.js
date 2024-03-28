@@ -12,16 +12,12 @@ const fileToObject = (filepath) => {
 const genDiff = (filepath1, filepath2) => {
   const dataObj1 = fileToObject(filepath1);
   const dataObj2 = fileToObject(filepath2);
-  const result = {
-    status: 'root',
-    children: [],
-  };
 
   const iter = (data1, data2) => {
     const keys1 = Object.keys(data1);
     const keys2 = Object.keys(data2);
     const keys = _.union(keys1, keys2);
-    const sortedKeys = keys.sort();
+    const sortedKeys = [...keys].sort();
 
     const arr = sortedKeys.map((key) => {
       if (!Object.hasOwn(data1, key)) {
@@ -62,9 +58,14 @@ const genDiff = (filepath1, filepath2) => {
 
     return arr;
   };
+  const result = iter(dataObj1, dataObj2);
 
-  result.children.push(...iter(dataObj1, dataObj2));
-  return result;
+  const diffObj = {
+    status: 'root',
+    children: result,
+  };
+
+  return diffObj;
 };
 
 export default genDiff;
