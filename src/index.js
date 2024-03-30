@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import stylish from './stylish.js';
-import plain from './plain.js';
-import json from './json.js';
+import stylish from './formatters/stylish.js';
+import plain from './formatters/plain.js';
+import json from './formatters/json.js';
 import treeBuilder from './treeBuilder.js';
 import parsers from './parsers.js';
 
