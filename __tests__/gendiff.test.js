@@ -18,25 +18,25 @@ const expectedJsonFormat = fs.readFileSync(getFixturePath('expected-json-format.
 });
 
 test('stylish-format-diff-json', () => {
-  expect(main('./file1.json', './file2.json', 'stylish')).toBe(expectedStylishFormat);
+  expect(main(getFixturePath('file1.json'), getFixturePath('file2.json'), 'stylish')).toBe(expectedStylishFormat);
 });
 
 test('stylish-format-diff-yaml', () => {
-  expect(main('./file1.yml', './file2.yml', 'stylish')).toBe(expectedStylishFormat);
+  expect(main(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'stylish')).toBe(expectedStylishFormat);
 });
 
 test('plain-format-diff-json', () => {
-  expect(main('./file1.json', './file2.json', 'plain')).toBe(expectedPlainFormat);
+  expect(main(getFixturePath('file1.json'), getFixturePath('file2.json'), 'plain')).toBe(expectedPlainFormat);
 });
 
 test('plain-format-diff-yaml', () => {
-  expect(main('./file1.yml', './file2.yml', 'plain')).toBe(expectedPlainFormat);
+  expect(main(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'plain')).toBe(expectedPlainFormat);
 });
 
 test('json-format-diff-json', () => {
-  expect(main('./file1.json', './file2.json', 'json')).toBe(expectedJsonFormat);
+  expect(main(getFixturePath('file1.json'), getFixturePath('file2.json'), 'json')).toBe(expectedJsonFormat);
 });
 
 test('json-format-diff-yaml', () => {
-  expect(main('./file1.yml', './file2.yml', 'json')).toBe(expectedJsonFormat);
+  expect(main(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'json')).toBe(expectedJsonFormat);
 });

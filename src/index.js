@@ -7,21 +7,15 @@ import treeBuilder from './treeBuilder.js';
 import parsers from './parsers.js';
 
 const formatter = (object, format) => {
-  if (format === 'plain') {
-    return plain(object);
-  }
-  if (format === 'json') {
-    return json(object);
-  }
-  return stylish(object);
+  const mapping = {
+    plain: plain(object),
+    json: json(object),
+    stylish: stylish(object),
+  };
+  return mapping[format];
 };
 
-const getFilePath = (filepath) => {
-  if (!filepath.startsWith('/')) {
-    return path.resolve(process.cwd(), './__fixtures__/', filepath);
-  }
-  return filepath;
-};
+const getFilePath = (filepath) => path.resolve(process.cwd(), filepath);
 
 const fileToString = (filepath) => {
   const data = fs.readFileSync(filepath, { encoding: 'utf8' });
@@ -34,7 +28,7 @@ const fileToString = (filepath) => {
   throw new Error('Error extension');
 };
 
-const main = (filepath1, filepath2, format) => {
+const main = (filepath1, filepath2, format = 'stylish') => {
   const data1 = fileToString(getFilePath(filepath1));
   const data2 = fileToString(getFilePath(filepath2));
   return formatter(treeBuilder(data1, data2), format);

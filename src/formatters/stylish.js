@@ -4,9 +4,7 @@ const getValue = (data, depth) => {
   if (!_.isObject(data)) {
     return data;
   }
-  const lines = Object.entries(data).map(
-    ([key, val]) => `${' '.repeat(depth * 4)}${key}: ${getValue(val, depth + 1)}`,
-  );
+  const lines = Object.entries(data).map(([key, val]) => `${' '.repeat(depth * 4)}${key}: ${getValue(val, depth + 1)}`);
   return ['{', ...lines, `${' '.repeat(depth * 4 - 4)}}`].join('\n');
 };
 
@@ -19,10 +17,10 @@ const stylish = (object) => {
         case 'removed':
           return `${' '.repeat(depth * 4 - 2)}- ${obj.key}: ${getValue(obj.value, depth + 1)}`;
         case 'updated':
-          return `${' '.repeat(depth * 4 - 2)}- ${obj.key}: ${getValue(
-            obj.value1,
+          return `${' '.repeat(depth * 4 - 2)}- ${obj.key}: ${getValue(obj.value1, depth + 1)}\n${' '.repeat(depth * 4 - 2)}+ ${obj.key}: ${getValue(
+            obj.value2,
             depth + 1,
-          )}\n${' '.repeat(depth * 4 - 2)}+ ${obj.key}: ${getValue(obj.value2, depth + 1)}`;
+          )}`;
         case 'unchanged':
           return `${' '.repeat(depth * 4 - 2)}  ${obj.key}: ${getValue(obj.value, depth + 1)}`;
         case 'nested':
