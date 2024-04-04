@@ -17,7 +17,7 @@ const fileToString = (filepath) => {
   throw new Error('Error extension');
 };
 
-const main = (filepath1, filepath2, format) => {
+const main = (filepath1, filepath2, format = 'stylish') => {
   const data1 = fileToString(getFilePath(filepath1));
   const data2 = fileToString(getFilePath(filepath2));
   return formatter(treeBuilder(data1, data2), format);
