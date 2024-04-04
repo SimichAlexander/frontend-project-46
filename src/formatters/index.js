@@ -11,7 +11,7 @@ const mapping = {
 const formatter = (object, type) => {
   const format = mapping[type];
   if (!format) {
-    throw new Error(`Unknown format '${format}'`);
+    throw new Error(`Unknown format '${type}'`);
   }
   return format(object);
 };
